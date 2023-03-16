@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import '../styles/App.css';
+import React, { useState } from "react";
+import "../styles/App.css";
 
-function ToDo({ id, task, createdAt }) {
+function ToDo(props) {
   return (
     <tr>
       <td>
-        <p>{id}</p>
+        <p>{props.id}</p>
       </td>
       <td>
-        <input value={task} />
+        <input />
       </td>
       <td>
-        <p>{createdAt}</p>
+        <p>{props.createdAt}</p>
       </td>
     </tr>
   );
@@ -20,40 +20,33 @@ function ToDo({ id, task, createdAt }) {
 function App() {
   const [todos, setTodos] = useState([
     {
-      id: 'todo1',
-      task: 'Buy groceries',
-      createdAt: '20:30',
+      id: "todo1",
+      createdAt: "20:30",
     },
     {
-      id: 'todo2',
-      task: 'Clean the house',
-      createdAt: '18:00',
+      id: "todo2",
+      createdAt: "18:00",
     },
   ]);
-
-  const reverseOrder = () => {
-    setTodos(prevTodos => [...prevTodos].reverse());
+  const reverseHandler = () => {
+    const arr = [];
+    arr[0] = todos[1];
+    arr[1] = todos[0];
+    setTodos(arr);
   };
 
   return (
     <div id="main">
-      <button onClick={reverseOrder}>Reverse</button>
+      <button onClick={reverseHandler}>Reverse</button>
       <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>input</th>
-            <th>createdAt</th>
-          </tr>
-        </thead>
         <tbody>
-          {todos.map(todo => (
-            <ToDo key={todo.id} id={todo.id} task={todo.task} createdAt={todo.createdAt} />
-          ))}
+          {todos.map((el) => {
+            return <ToDo key={el.id} id={el.id} createdAt={el.createdAt} />;
+          })}
         </tbody>
       </table>
     </div>
   );
 }
 
-export default App;
+export default App;
